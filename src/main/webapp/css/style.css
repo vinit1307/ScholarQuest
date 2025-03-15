@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Merriweather", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 450;
+    font-variation-settings: "wdth" 100;
+
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* background: #ad5389;
+    background: -webkit-linear-gradient(to top, #DAE2F8, #D6A4A4);
+    background: linear-gradient(135deg, #c2e9fb, #a1c4fd, #CBEAEC); */
+
+    background-image: url("../images/RTUFCD.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+}
+
+header {
+    font-family: "Varela Round", Arial, sans-serif;
+    font-weight: 400;
+    font-weight: 550;
+    font-style: normal;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+    /* border: 0.1px solid rgb(114, 114, 114); */
+    background-color: transparent; 
+
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 1.65%;
+}
+
+.logo i {
+    height: 30px; 
+    margin-right: 10px;
+    font-size: 33px;
+    margin-top: -10px;
+}
+
+.logo a {
+    font-size: 25px;
+    font-weight: bolder;
+    text-decoration: none;
+    position: relative;
+    color: black;
+}
+
+nav {
+    padding-left: 5%;
+    margin-top: 2vh;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 25px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    font-size: larger;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #000307;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    color: red;
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
+.form-container {
+    background-color: transparent;
+    margin: 120px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 36px 0px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 700px;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form label {
+    margin-bottom: 10px;
+}
+
+.form-container form input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1bb8d7;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container p {
+    text-align: center;
+}
+
+/* Register CSS */
+
+.reg-form-container {
+    background-color: transparent;
+    margin: 120px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 36px 0px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 700px;
+}
+
+.reg-form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: black;
+    margin-top: 30px;
+}
+
+.reg-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.reg-form-container form label {
+    margin-bottom: 10px;
+    display: block;
+    margin: 10px 0;
+    color: black;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.reg-form-container form select,
+.reg-form-container form input[type="text"],
+.reg-form-container form input[type="email"],
+.reg-form-container form input[type="tel"],
+.reg-form-container form input[type="password"],
+.reg-form-container form input[type="date"] {
+    margin-left: 25px;
+    margin-right: 25px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reg-form-container form .year-sem-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.reg-form-container form .year-sem-container input {
+    width: 48%;
+    display: inline-block;
+} 
+
+.reg-form-container form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1bb8d7;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.reg-form-container p {
+    text-align: center;
+}
