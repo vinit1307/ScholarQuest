@@ -65,6 +65,7 @@ public class RegisterServlet extends HttpServlet {
          try {
              // Database connection
              Class.forName("com.mysql.jdbc.Driver");
+             System.out.println("Driver Loaded Successfully");
              System.out.println("MySQL JDBC Driver Loaded Successfully!");
              Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/scholarship", "root", "root");
              System.out.println("MySQL Connection build Successfully!");
