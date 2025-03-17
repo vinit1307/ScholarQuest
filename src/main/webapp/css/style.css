@@ -32,7 +32,6 @@ header {
     font-weight: 400;
     font-weight: 550;
     font-style: normal;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,7 +84,7 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: black;
-    font-weight: bolder;
+    font-weight: bold;
     font-size: larger;
     position: relative;
     transition: color 0.3s ease-in-out;

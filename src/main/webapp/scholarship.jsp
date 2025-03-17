@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
 
     <style>
-        body {
-            background: linear-gradient(to right, #A1C4FD, #C2E9FB);
-            font-family: Arial, sans-serif;
-        }
-        
         .container {
             margin-top: 20px;
         }
@@ -27,69 +22,37 @@
             justify-content: center;
         }
         .scholarship-box {
-    background: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    margin: 15px;
-    transition: transform 0.2s;
-    cursor: pointer;
-    min-height: 200px; /* Ensures equal height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch; /* Ensures all columns stretch to the same height */
-}
+        	background-color: transparent;
+   	 		border-radius: 10px;
+    		padding: 15px;
+    		box-shadow: 0px 0px 36px 0px rgba(0,0,0,0.1);
+    		margin: 15px;
+    		transition: transform 0.2s;
+    		cursor: pointer;
+    		min-height: 200px; /* Ensures equal height */
+    		display: flex;
+   		 	flex-direction: column;
+   		 	justify-content: space-between;
+   		 	max-width: 400px;
+    		width: 700px;
+		}
+		.row {
+   			 display: flex;
+   			 flex-wrap: wrap;
+   			 justify-content: center;
+    		 align-items: stretch; /* Ensures all columns stretch to the same height */
+		}
         
         .scholarship-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         h3 {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: bold;
         }
         p {
             margin: 5px 0;
             font-size: 14px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        .logo h2 {
-            margin-left: 10px;
-            font-weight: bold;
-            color: black;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        nav ul li a:hover, nav ul li a.active {
-            color: #007bff;
         }
     </style>
 </head>
@@ -111,7 +74,7 @@
     </header>
     
     <main>
-        <h2 style="text-align: center; margin-top: 20px;">All Scholarships</h2>
+        <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">All Scholarships</h2>
         
         <div class="container">
             <div class="row">
