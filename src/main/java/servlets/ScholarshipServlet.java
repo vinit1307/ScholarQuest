@@ -25,40 +25,38 @@ public class ScholarshipServlet extends HttpServlet {
         ArrayList<Scholarship> scholarships = new ArrayList<>();
 
         try {
-            // Load MySQL JDBC Driver
-            Class.forName("com.mysql.jdbc.Driver");
+            // Load MySQL JDBC Driver for MySQL 8
+            Class.forName("com.mysql.cj.jdbc.Driver");
             logger.info("MySQL JDBC Driver Registered!");
 
-            // Database Connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scholarship", "root", "root");
-            logger.info("Database connected successfully!");
+            // Connection parameters
+            String url = "jdbc:mysql://localhost:3306/scholarship?useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true";
+            String user = "root";  
+            String password = "root";  
 
-            // Fetch all scholarships
-            String sql = "SELECT id, name, provider, last_date, category FROM scholarshipdata";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            // Establish connection with try-with-resources
+            try (Connection conn = DriverManager.getConnection(url, user, password);
+                 PreparedStatement stmt = conn.prepareStatement("SELECT id, name, provider, last_date, category FROM scholarshipdata");
+                 ResultSet rs = stmt.executeQuery()) {
 
-            while (rs.next()) {
-                scholarships.add(new Scholarship(
-                    rs.getInt("id"), 
-                    rs.getString("name"), 
-                    rs.getString("provider"), 
-                    rs.getString("last_date"), 
-                    rs.getString("category")
-                ));
+                while (rs.next()) {
+                    scholarships.add(new Scholarship(
+                        rs.getInt("id"), 
+                        rs.getString("name"), 
+                        rs.getString("provider"), 
+                        rs.getString("last_date"), 
+                        rs.getString("category")
+                    ));
+                }
+                logger.info("Scholarships retrieved: " + scholarships.size());
             }
-            request.setAttribute("scholarships", scholarships);
-            logger.info("Scholarships retrieved: " + scholarships.size());
 
-            conn.close();
         } catch (Exception e) {
             logger.severe("Database error: " + e.getMessage());
             e.printStackTrace();
         }
 
-        // Debugging logs
-        logger.info("Scholarships object sent to JSP: " + scholarships);
-
+        // Forwarding to JSP
         request.setAttribute("scholarships", scholarships);
         RequestDispatcher dispatcher = request.getRequestDispatcher("scholarship.jsp");
         dispatcher.forward(request, response);
