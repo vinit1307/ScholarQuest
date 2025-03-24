@@ -68,6 +68,7 @@ header {
 nav {
     padding-left: 5%;
     margin-top: 2vh;
+    /* margin-right: 1%; */
 }
 
 nav ul {
@@ -229,4 +230,37 @@ nav ul li a:hover::after {
     text-align: center;
 }
 
+
+/* dashboard css */
+
+#dropdownMenuButton1 {
+    background-color: transparent;
+    border: none;
+    border-radius: 0%;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 19.12px;
+}
+
+.dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important; /* Smooth glass effect */
+    border: none !important;
+    /* box-shadow: none !important; */
+    backdrop-filter: blur(10px); /* Optional: Glassmorphic effect */
+}
+
+.dropdown-item {
+    color: black !important;
+    padding: 10px 20px !important;
+    background-color: transparent !important;
+}
+
+/* Fix hover effect to maintain transparency */
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important; 
+    color: black !important;
+    border-radius: 8px; 
+}
 
