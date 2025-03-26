@@ -15,14 +15,27 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* background: #ad5389;
+    /* background: #E4EFE7;#ad5389; */
     background: -webkit-linear-gradient(to top, #DAE2F8, #D6A4A4);
-    background: linear-gradient(135deg, #c2e9fb, #a1c4fd, #CBEAEC); */
+    /*background: linear-gradient(135deg, #c2e9fb, #a1c4fd, #CBEAEC); */
+    /* background: rgb(238,174,202);
+    background: rgb(238,174,236);
+    background: radial-gradient(circle, rgba(238,174,236,1) 0%, rgba(148,215,233,1) 100%); */
 
-    background-image: url("../images/RTUFCD.png");
+    /* background-image: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); */
+
+    /* background-image: linear-gradient(to bottom, #dbdcd7 0%, #dddcd7 24%, #e2c9cc 30%, #e7627d 46%, #b8235a 59%, #801357 71%, #3d1635 84%, #1c1a27 100%); */
+
+    /* background: linear-gradient(135deg, #ffe5ce, #ffd0ba, #ffb9b0, #ffa2b0, #fd8dba, #ec7cca, #cd72de, #9c71f2); #b1cbfa */
+
+    /* background: radial-gradient(circle at 100% 0%, #a0d9f2, #8dded2, #9ddda7, #c0d57f, #e3c978, #fcbb9e, #ffb0d2, #f7b0ff); made at https://learnui.design/tools/gradient-generator.html */
+
+    background: radial-gradient(circle at 20% -10%, #79DCEE, #CFAFF1, #efc4d6, /*#FDB7B9*/ /*#ECBCE4*/ #79DCEE); /* made at https://learnui.design/tools/gradient-generator.html */
+
+    /* background-image: url("../images/RTUFCD.png");
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 
 
 }
