@@ -45,6 +45,11 @@ public class RegisterServlet extends HttpServlet {
          String country = request.getParameter("country");
          String state = request.getParameter("state");
          String phone = request.getParameter("phone");
+         
+         if( phone != null  &&( phone.length() < 10 || phone.length() >10)) {
+        	 out.println("<h3 style='color:red;'>Phone no  cannot be less thain 10!</h3>");
+             return; 
+         }
          String password = request.getParameter("password");
          String confirmPassword = request.getParameter("ConfirmPassword");
         
