@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         	   
               PreparedStatement ps = con.prepareStatement("select * from User where email=? and password_hash=?");
               ps.setString(1, myemail);
-              ps.setString(2, mypassword);
+              ps.setString(2, mypassword);S
               
               ResultSet rs = ps.executeQuery();
               if(rs.next())
