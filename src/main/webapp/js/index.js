@@ -45,10 +45,10 @@ let slideIndex = 0;
 
     function autoSlide() {
       moveSlide(1);
-      setTimeout(autoSlide, 3000); // Slide every 3 seconds
+      setTimeout(autoSlide, 3500); // Slide every 3 seconds
     }
 
-    setTimeout(autoSlide, 3000);
+    setTimeout(autoSlide, 3500);
 
 
 // let slideIndex = 0;
