@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -44,7 +46,16 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs=ps.executeQuery();
             if(rs.next())
             {
-            	response.sendRedirect("dashboard.html");
+            	// Invalidate if any existing session exists
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) {
+                    oldSession.invalidate();
+                }
+
+                // Creates a new session
+                HttpSession newSession = request.getSession(true);
+                newSession.setAttribute("email", myemail);
+                response.sendRedirect("dashboard.jsp");
             }
             else {
             	 out.println("<script type='text/javascript'>");
