@@ -2,9 +2,10 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,11 +18,11 @@ public class ScholarshipServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         ArrayList<Scholarship> scholarships = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            logger.info("MySQL JDBC Driver Registered!");
 
             String url = "jdbc:mysql://localhost:3306/scholarship?useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true";
             String user = "root";
@@ -36,24 +37,19 @@ public class ScholarshipServlet extends HttpServlet {
                 if ("eligible".equalsIgnoreCase(mode) && loggedIn) {
                     String email = (String) session.getAttribute("email");
 
-                    String userQuery = "SELECT date_of_birth, category, gender, annual_income, country FROM user WHERE email = ?";
+                    String userQuery = "SELECT date_of_birth, category, gender, annual_income FROM user WHERE email = ?";
                     try (PreparedStatement userStmt = conn.prepareStatement(userQuery)) {
                         userStmt.setString(1, email);
                         ResultSet userRs = userStmt.executeQuery();
 
                         if (userRs.next()) {
                             String dob = userRs.getString("date_of_birth");
-                            String caste = userRs.getString("category");
-                            String gender = userRs.getString("gender");
-                            String country = userRs.getString("country");
+                            String userCaste = userRs.getString("category");
+                            String userGender = userRs.getString("gender");
                             String incomeStr = userRs.getString("annual_income");
 
-                            double annualIncome = parseIncome(incomeStr);
-                            int birthYear = Integer.parseInt(dob.split("-")[0]);
-                            int currentYear = java.time.LocalDate.now().getYear();
-                            int age = currentYear - birthYear;
-
-                            logger.info("User info - Age: " + age + ", Caste: " + caste + ", Gender: " + gender + ", Income: " + annualIncome + ", Country: " + country);
+                            double userIncome = parseIncome(incomeStr);
+                            int userAge = calculateAge(dob);
 
                             String scholarshipQuery = "SELECT id, name, provider, last_date, category, age, annual_income, caste FROM scholarshipdata";
                             try (PreparedStatement stmt = conn.prepareStatement(scholarshipQuery);
@@ -63,30 +59,39 @@ public class ScholarshipServlet extends HttpServlet {
                                     String schAge = rs.getString("age");
                                     String schIncome = rs.getString("annual_income");
                                     String schCaste = rs.getString("caste");
-                                    String category = rs.getString("category");
+                                    String schCategory = rs.getString("category");
 
-                                    boolean ageEligible = checkAgeEligibility(schAge, age);
-                                    boolean incomeEligible = checkIncomeEligibility(schIncome, annualIncome);
-                                    boolean casteEligible = schCaste == null || schCaste.equalsIgnoreCase("Any") || schCaste.equalsIgnoreCase(caste);
+                                    // Gender filter
+                                    if ("male".equalsIgnoreCase(userGender) &&
+                                            schCategory != null &&
+                                            schCategory.toLowerCase().contains("girl")) {
+                                        logger.info("Skipped girl-only scholarship for male");
+                                        continue;
+                                    }
+                                    if ("female".equalsIgnoreCase(userGender) &&
+                                            schCategory != null &&
+                                            schCategory.toLowerCase().contains("boy")) {
+                                        logger.info("Skipped boy-only scholarship for female");
+                                        continue;
+                                    }
 
-                                    boolean genderEligible = gender != null && gender.equalsIgnoreCase("Female") && category.toLowerCase().contains("girl");
-                                    boolean countryEligible = country != null && country.equalsIgnoreCase("Abroad") && category.toLowerCase().contains("international");
+                                    boolean casteEligible = schCaste == null || schCaste.equalsIgnoreCase("Any") ||
+                                            schCaste.equalsIgnoreCase(userCaste);
+                                    boolean incomeEligible = isIncomeEligible(schIncome, userIncome);
+                                    boolean ageEligible = isAgeEligible(schAge, userAge);
 
-                                    if (ageEligible && incomeEligible && casteEligible) {
+                                    logger.info("Scholarship ID " + rs.getInt("id") +
+                                            " | Caste Eligible: " + casteEligible +
+                                            " | Income Eligible: " + incomeEligible +
+                                            " | Age Eligible: " + ageEligible);
+
+                                    if (casteEligible && incomeEligible && ageEligible) {
                                         scholarships.add(new Scholarship(
                                                 rs.getInt("id"),
                                                 rs.getString("name"),
                                                 rs.getString("provider"),
                                                 rs.getString("last_date"),
-                                                rs.getString("category")
-                                        ));
-                                    } else if (genderEligible || countryEligible) {
-                                        scholarships.add(new Scholarship(
-                                                rs.getInt("id"),
-                                                rs.getString("name"),
-                                                rs.getString("provider"),
-                                                rs.getString("last_date"),
-                                                rs.getString("category")
+                                                schCategory
                                         ));
                                     }
                                 }
@@ -94,9 +99,8 @@ public class ScholarshipServlet extends HttpServlet {
                         }
                     }
                 } else {
+                    // Show all scholarships
                     String query = "SELECT id, name, provider, last_date, category FROM scholarshipdata";
-                    logger.info("Fetching all scholarships");
-
                     try (PreparedStatement stmt = conn.prepareStatement(query);
                          ResultSet rs = stmt.executeQuery()) {
 
@@ -112,11 +116,9 @@ public class ScholarshipServlet extends HttpServlet {
                     }
                 }
 
-                logger.info("Total scholarships fetched: " + scholarships.size());
             }
-
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Database error: " + e.getMessage(), e);
+            logger.log(Level.SEVERE, "Error: " + e.getMessage(), e);
         }
 
         request.setAttribute("scholarships", scholarships);
@@ -129,48 +131,65 @@ public class ScholarshipServlet extends HttpServlet {
         }
     }
 
-    private double parseIncome(String incomeStr) {
-        if (incomeStr == null) return 0.0;
-        incomeStr = incomeStr.toLowerCase();
-        if (incomeStr.contains("less than 1 lakh")) return 100000.0;
-        if (incomeStr.contains("1 lakh - 3 lakh")) return 300000.0;
-        if (incomeStr.contains("3 lakh - 5 lakh")) return 500000.0;
-        if (incomeStr.contains("above 5 lakh")) return 1000000.0;
+    private int calculateAge(String dob) {
         try {
-            return Double.parseDouble(incomeStr.replaceAll("[^0-9.]", ""));
+            LocalDate birthDate = LocalDate.parse(dob);
+            return Period.between(birthDate, LocalDate.now()).getYears();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private double parseIncome(String incomeStr) {
+        if (incomeStr == null || incomeStr.equalsIgnoreCase("Any")) return 0.0;
+
+        incomeStr = incomeStr.toLowerCase().replaceAll(",", "").trim();
+
+        try {
+            return Double.parseDouble(incomeStr.replaceAll("[^0-9]", ""));
         } catch (Exception e) {
             return 0.0;
         }
     }
 
-    private boolean checkAgeEligibility(String ageText, int userAge) {
-        if (ageText == null || ageText.equalsIgnoreCase("Any")) return true;
+    private boolean isIncomeEligible(String schIncome, double userIncome) {
+        if (schIncome == null || schIncome.trim().equalsIgnoreCase("Any")) return true;
+
+        schIncome = schIncome.toLowerCase().replaceAll(",", "").trim();
+
         try {
-            if (ageText.toLowerCase().contains("less than")) {
-                int limit = Integer.parseInt(ageText.replaceAll("[^0-9]", ""));
-                return userAge < limit;
+            if (schIncome.contains("less than")) {
+                int limit = Integer.parseInt(schIncome.replaceAll("[^0-9]", ""));
+                return userIncome < limit;
+            } else if (schIncome.contains("more than")) {
+                int limit = Integer.parseInt(schIncome.replaceAll("[^0-9]", ""));
+                return userIncome > limit;
             } else {
-                int limit = Integer.parseInt(ageText.replaceAll("[^0-9]", ""));
-                return userAge <= limit;
+                int limit = Integer.parseInt(schIncome.replaceAll("[^0-9]", ""));
+                return userIncome <= limit;
             }
         } catch (Exception e) {
-            logger.warning("Invalid age format: " + ageText);
             return true;
         }
     }
 
-    private boolean checkIncomeEligibility(String incomeText, double userIncome) {
-        if (incomeText == null || incomeText.equalsIgnoreCase("Any")) return true;
+    private boolean isAgeEligible(String schAge, int userAge) {
+        if (schAge == null || schAge.trim().equalsIgnoreCase("Any")) return true;
+
+        schAge = schAge.toLowerCase().replaceAll(",", "").trim();
+
         try {
-            if (incomeText.toLowerCase().contains("less than")) {
-                int limit = Integer.parseInt(incomeText.replaceAll("[^0-9]", ""));
-                return userIncome < limit;
+            if (schAge.contains("less than")) {
+                int limit = Integer.parseInt(schAge.replaceAll("[^0-9]", ""));
+                return userAge < limit;
+            } else if (schAge.contains("more than")) {
+                int limit = Integer.parseInt(schAge.replaceAll("[^0-9]", ""));
+                return userAge > limit;
             } else {
-                int limit = Integer.parseInt(incomeText.replaceAll("[^0-9]", ""));
-                return userIncome <= limit;
+                int limit = Integer.parseInt(schAge.replaceAll("[^0-9]", ""));
+                return userAge <= limit;
             }
         } catch (Exception e) {
-            logger.warning("Invalid income format: " + incomeText);
             return true;
         }
     }
