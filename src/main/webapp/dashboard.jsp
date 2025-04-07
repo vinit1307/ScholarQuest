@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,36 +27,29 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/index.css">
+    
     <script src="js/index.js"></script>
-
-    <style>
-        nav {
-            padding-left: 5%;
-            margin-top: 2vh;
-            margin-right: 2%;
-        }
-    </style>
 </head>
 
 <body>
     <header>
         <div class="logo">
             <i class="fa-solid fa-graduation-cap"></i>
-            <a href="index.html"><h2><b>ScholarQuest </b></h2></a>
+            <a href="index.html"><h2><b>ScholarQuest</b></h2></a>
         </div>
         <nav>
             <ul>
                 <li><a href="dashboard.jsp"><b>Home</b></a></li>
                 <li><a href="about.html"><b>About</b></a></li>
                 <li><a href="LogoutServlet"><b>Logout</b></a></li>
-                <button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Scholarships
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="ScholarshipServlet"><b>All Scholarships</b></a></li><br>
-                    <li><a href="ScholarshipServlet?mode=eligible"><b>Eligible Scholarships</b></a></li>
+                    <li><a class="dropdown-item" href="ScholarshipServlet?mode=eligible"><b>Eligible Scholarships</b></a></li>
                 </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -90,48 +84,37 @@
     <br>
     <br>
     <br>
+    
     <div class="container">
-        <h2 class="title"><span>Popular Scholarship Categories</span></h2>
-        
-        <div class="grid">
-            <div class="card">
-                <i class="fas fa-female"></i>
-                <span><a href="login.html">For Girls</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-gamepad"></i>
-                <span><a href="login.html">Sports Talent</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-university"></i>
-                <span><a href="login.html">College Level</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-users"></i>
-                <span><a href="login.html">SC/ST/OBC/DNT</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-plane"></i>
-                <span><a href="login.html">International</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-star"></i>
-                <span><a href="login.html">Talent Based</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-user-friends"></i>
-                <span><a href="login.html">Minorities</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-trophy"></i>
-                <span><a href="login.html">Merit Based</a></span>
-            </div>
-            <div class="card">
-                <i class="fas fa-school"></i>
-                <span><a href="login.html">School Level</a></span>
-            </div>
+    <h2 class="title"><span>Popular Scholarship Categories</span></h2>
+    <div class="grid">
+      <div class="row">
+        <div class="card">
+          <i class="fas fa-female"></i>
+          <span><a href="login.html">For Girls</a></span>
         </div>
+        <div class="card">
+          <i class="fas fa-plane"></i>
+          <span><a href="login.html">International</a></span>
+        </div>
+        <div class="card">
+          <i class="fas fa-users"></i>
+          <span><a href="login.html">Government</a></span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="card">
+          <i class="fas fa-university"></i>
+          <span><a href="login.html">College Level</a></span>
+        </div>
+        <div class="card">
+          <i class="fas fa-school"></i>
+          <span><a href="login.html">School Level</a></span>
+        </div>
+      </div>
     </div>
+  </div>
 
     <br>
     <br>
