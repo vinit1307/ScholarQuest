@@ -230,11 +230,9 @@
         
 
         <div id="filterMenu" class="dropdown-content">
-      	<label><input type="checkbox" value="College Level" class="filter-checkbox" /> College Level</label>
-      	<label><input type="checkbox" value="School Level" class="filter-checkbox" /> School Level</label>
-      	<label><input type="checkbox" value="Government" class="filter-checkbox" /> Government</label>
-      	<label><input type="checkbox" value="Private" class="filter-checkbox" /> Private</label>
-      	<label><input type="checkbox" value="Girls" class="filter-checkbox" /> Girls</label>
+      	<label><input type="radio" value="Sort [A-Z]" class="filter-checkbox" /> Sort [A-Z]</label>
+      	<label><input type="radio" value="Sort [Z-A]" class="filter-checkbox" /> Sort [Z-A]</label>
+      	<label><input type="radio" value="Always Open" class="filter-checkbox" /> Always Open</label>
       	</div>
       	</div>
       	
