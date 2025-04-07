@@ -25,7 +25,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const filterToggle = document.getElementById("filterToggle");
+    const filterMenu = document.getElementById("filterMenu");
 
+    filterToggle.addEventListener("click", function (e) {
+      e.stopPropagation(); // Prevent click from bubbling
+      filterMenu.style.display =
+        filterMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // Optional: close dropdown if clicking outside
+    document.addEventListener("click", function (e) {
+      if (!filterMenu.contains(e.target) && !filterToggle.contains(e.target)) {
+        filterMenu.style.display = "none";
+      }
+    });
+  });
+</script>
 
     
     <style>
@@ -76,8 +94,8 @@
         display: flex;
         align-items: center;
         width: 60px;
-        margin-right: 10px;
-        margin-left: 120px;
+        margin-right: 0px;
+        margin-left: 2px;
         }
         
         .search-input {
@@ -118,29 +136,57 @@
         position: relative;
         display: flex;
         align-items: center;
-        width: 60px;
-        margin-right: 10px;
-        margin-left: 120px;
+        width: 40px;
+        margin-right: 0px;
         position: relative;
+        
+        }
+        
+        #filterToggle{
+        background-color: transparent;
+        border: none;
+        transition: transform 0.5s ease;
+        }
+        
+        #filterToggle:hover{
+        transform: scale(1.2);
         }
         
         .dropdown-content {
         display: none;
   		position: absolute;
-  		top: 36px;
- 		left: 0;
-  		background-color: white;
+  		top: 42px;
+ 		left: 0px;
+ 		width: 150px;
+ 		height: auto;
  		border: 1px solid #ddd;
   		border-radius: 6px;
  		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   		padding: 10px;
   		z-index: 1000;
+  		
+  		background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important; /* Smooth glass effect */
+    border: none !important;
+    /* box-shadow: none !important; */
+    backdrop-filter: blur(10px); /* Optional: Glassmorphic effect */
   		}
   		
   		.dropdown-content label {
   		display: block;
   		margin-bottom: 5px;
+  		margin-top: 5px;
   		cursor: pointer;
+		}
+		
+		.filter-checkbox{
+		margin-right: 6.6px;
+		}
+		
+		.filter-search-wrapper {
+ 		display: flex;
+  		align-items: center;
+ 		margin-left: 128px;
 		}
  
     </style>
@@ -174,11 +220,12 @@
         <br>
         <br>
         
+		<div class="filter-search-wrapper">
 		
         <!-- Filter Button -->
-        <!--<div class="filter-dropdown">
+        <div class="filter-dropdown">
         <button id="filterToggle">
-        <img src="./images/Filter.png" alt="Filter" style="width: 24px; height: 24px; cursor: pointer;" />
+        <img src="./images/filter 2.png" alt="Filter" style="width: 29px; height: 29px; cursor: pointer;" />
         </button>
         
 
@@ -187,16 +234,16 @@
       	<label><input type="checkbox" value="School Level" class="filter-checkbox" /> School Level</label>
       	<label><input type="checkbox" value="Government" class="filter-checkbox" /> Government</label>
       	<label><input type="checkbox" value="Private" class="filter-checkbox" /> Private</label>
+      	<label><input type="checkbox" value="Girls" class="filter-checkbox" /> Girls</label>
       	</div>
       	</div>
-      	-->
-
       	
-        
       
         <div class="search-container">
         <div class="search-icon"><i class="fas fa-search"></i></div>
         <input type="text" class="search-input" placeholder="Search">
+        </div>
+        
         </div>
         
     <main>     
