@@ -81,6 +81,27 @@
     </style>
 </head>
 <body>
+<header>
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <a href="index.html"><h2><b>ScholarQuest</b></h2></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="dashboard.jsp"><b>Home</b></a></li>
+                <li><a href="about.html"><b>About</b></a></li>
+                <li><a href="LogoutServlet"><b>Logout</b></a></li>
+                <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Scholarships
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="ScholarshipServlet"><b>All Scholarships</b></a></li><br>
+                    <li><a class="dropdown-item" href="ScholarshipServlet?mode=eligible"><b>Eligible Scholarships</b></a></li>
+                </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <h4>Scholarships For <%= cat %></h4>
     <div class="container">
         <div class="row">
