@@ -85,36 +85,36 @@
     <br>
     <br>
     
-    <div class="container">
-    <h2 class="title"><span>Popular Scholarship Categories</span></h2>
-    <div class="grid">
-      <div class="row">
-        <div class="card">
-          <i class="fas fa-female"></i>
-          <span><a href="login.html">For Girls</a></span>
-        </div>
-        <div class="card">
-          <i class="fas fa-plane"></i>
-          <span><a href="login.html">International</a></span>
-        </div>
-        <div class="card">
-          <i class="fas fa-users"></i>
-          <span><a href="login.html">Government</a></span>
-        </div>
+ <div class="container">
+  <h2 class="title"><span>Popular Scholarship Categories</span></h2>
+  <div class="grid">
+    <div class="row">
+      <div class="card">
+        <i class="fas fa-female"></i>
+        <span><a href="categories.jsp?category=For Girls">For Girls</a></span>
       </div>
-  
-      <div class="row">
-        <div class="card">
-          <i class="fas fa-university"></i>
-          <span><a href="login.html">College Level</a></span>
-        </div>
-        <div class="card">
-          <i class="fas fa-school"></i>
-          <span><a href="login.html">School Level</a></span>
-        </div>
+      <div class="card">
+        <i class="fas fa-plane"></i>
+        <span><a href="categories.jsp?category=International">International</a></span>
+      </div>
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <span><a href="categories.jsp?category=Government">Government</a></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <i class="fas fa-university"></i>
+        <span><a href="categories.jsp?category=College Level">College Level</a></span>
+      </div>
+      <div class="card">
+        <i class="fas fa-school"></i>
+        <span><a href="categories.jsp?category=School Level">School Level</a></span>
       </div>
     </div>
   </div>
+</div>
 
     <br>
     <br>
