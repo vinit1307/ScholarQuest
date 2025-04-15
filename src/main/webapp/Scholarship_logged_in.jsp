@@ -28,6 +28,51 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+	    const filterToggle = document.getElementById("filterToggle");
+	    const filterMenu = document.getElementById("filterMenu");
+	    const checkboxes = filterMenu.querySelectorAll(".filter-checkbox");
+
+	    let selectedCheckbox = null;
+
+	    filterToggle.addEventListener("click", function (e) {
+	        e.stopPropagation(); // Prevent click from bubbling
+	        filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
+	    });
+
+	    document.addEventListener("click", function (e) {
+	        if (!filterMenu.contains(e.target) && !filterToggle.contains(e.target)) {
+	            filterMenu.style.display = "none";
+	        }
+	    });
+
+	    checkboxes.forEach(checkbox => {
+	        checkbox.addEventListener("click", function (e) {
+	            // If clicking the already selected option, deselect it
+	            if (selectedCheckbox === this) {
+	                this.checked = false;
+	                selectedCheckbox = null;
+	            } else {
+	                // Deselect all others
+	                checkboxes.forEach(cb => {
+	                    cb.checked = false;
+	                });
+	                this.checked = true;
+	                selectedCheckbox = this;
+	            }
+	        });
+	    });
+	});
+    
+    </script>
 
     <style>
         .container {
@@ -71,6 +116,108 @@
             margin: 5px 0;
             font-size: 14px;
         }
+        
+        
+        .search-container  {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 60px;
+        margin-right: 0px;
+        margin-left: 2px;
+        }
+        
+        .search-input {
+        width: 0;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        transition: width 0.5s ease;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        padding-left: 10px;
+        }
+        
+        .search-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.5s ease;
+        margin-left: 10px;
+        margin-right: 15px;
+        }
+        
+        .search-icon:hover + .search-input {
+        width: 200px; /* Expand width on hover */
+        }
+        
+        .search-container:hover .search-input {
+        width: 200px; /* Adjust width as needed */
+        opacity: 1;
+        visibility: visible;
+        }
+        
+        .search-container:hover .search-icon {
+        transform: scale(1.2); /* Scale up the icon */
+        }
+        
+        .filter-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 40px;
+        margin-right: 0px;
+        position: relative;
+        
+        }
+        
+        #filterToggle{
+        background-color: transparent;
+        border: none;
+        transition: transform 0.5s ease;
+        }
+        
+        #filterToggle:hover{
+        transform: scale(1.2);
+        }
+        
+        .dropdown-content {
+        display: none;
+  		position: absolute;
+  		top: 42px;
+ 		left: 0px;
+ 		width: 150px;
+ 		height: auto;
+ 		border: 1px solid #ddd;
+  		border-radius: 6px;
+ 		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  		padding: 10px;
+  		z-index: 1000;
+  		
+  		background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important; /* Smooth glass effect */
+    border: none !important;
+    /* box-shadow: none !important; */
+    backdrop-filter: blur(10px); /* Optional: Glassmorphic effect */
+  		}
+  		
+  		.dropdown-content label {
+  		display: block;
+  		margin-bottom: 5px;
+  		margin-top: 5px;
+  		cursor: pointer;
+		}
+		
+		.filter-checkbox{
+		margin-right: 6.6px;
+		}
+		
+		.filter-search-wrapper {
+ 		display: flex;
+  		align-items: center;
+ 		margin-left: 128px;
+		}
+        
     </style>
 </head>
 <body>
@@ -83,14 +230,54 @@
             <ul>
                 <li><a href="dashboard.jsp">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="ScholarshipServlet" class="active">Scholarships</a></li>
+                
+                <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Scholarships
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="ScholarshipServlet"><b>All Scholarships</b></a></li><br>
+                    <li><a class="dropdown-item" href="ScholarshipServlet?mode=eligible"><b>Eligible Scholarships</b></a></li>
+                </ul>
+                </li>
+                
+                <!--<li><a href="ScholarshipServlet" class="active">Scholarships</a></li>-->
                 <li><a href="LogoutServlet"><b>Logout</b></a></li>
             </ul>
         </nav>
     </header>
     
-    <main>
+    	<br>
         <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">All Scholarships</h2>
+    
+    	<br>
+        <br>
+        
+		<div class="filter-search-wrapper">
+		
+        <!-- Filter Button -->
+        <div class="filter-dropdown">
+        <button id="filterToggle">
+        <img src="./images/filter 2.png" alt="Filter" style="width: 29px; height: 29px; cursor: pointer;" />
+        </button>
+        
+
+        <div id="filterMenu" class="dropdown-content">
+      	<label><input type="checkbox" value="Sort [A-Z]" class="filter-checkbox" /> Sort [A-Z]</label>
+      	<label><input type="checkbox" value="Sort [Z-A]" class="filter-checkbox" /> Sort [Z-A]</label>
+      	<label><input type="checkbox" value="Always Open" class="filter-checkbox" /> Always Open</label>
+      	</div>
+      	</div>
+      	
+      
+        <div class="search-container">
+        <div class="search-icon"><i class="fas fa-search"></i></div>
+        <input type="text" class="search-input" placeholder="Search">
+        </div>
+        
+        </div>
+    
+    <main>
+        <!--<h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">All Scholarships</h2>-->
         
         <div class="container">
             <div class="row">

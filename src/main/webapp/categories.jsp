@@ -25,6 +25,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
       h5{
          text-align : center;
@@ -90,7 +92,6 @@
             <ul>
                 <li><a href="dashboard.jsp"><b>Home</b></a></li>
                 <li><a href="about.html"><b>About</b></a></li>
-                <li><a href="LogoutServlet"><b>Logout</b></a></li>
                 <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Scholarships
                 </button>
@@ -99,10 +100,13 @@
                     <li><a class="dropdown-item" href="ScholarshipServlet?mode=eligible"><b>Eligible Scholarships</b></a></li>
                 </ul>
                 </li>
+                <li><a href="LogoutServlet"><b>Logout</b></a></li>
             </ul>
         </nav>
     </header>
-    <h4>Scholarships For <%= cat %></h4>
+    <br>
+    <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;"><%= cat %></h2>
+    <br>
     <div class="container">
         <div class="row">
             <%

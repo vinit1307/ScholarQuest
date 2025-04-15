@@ -25,8 +25,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    /*document.addEventListener("DOMContentLoaded", function () {
     const filterToggle = document.getElementById("filterToggle");
     const filterMenu = document.getElementById("filterMenu");
 
@@ -42,7 +44,44 @@
         filterMenu.style.display = "none";
       }
     });
-  });
+  });*/
+  
+  document.addEventListener("DOMContentLoaded", function () {
+	    const filterToggle = document.getElementById("filterToggle");
+	    const filterMenu = document.getElementById("filterMenu");
+	    const checkboxes = filterMenu.querySelectorAll(".filter-checkbox");
+
+	    let selectedCheckbox = null;
+
+	    filterToggle.addEventListener("click", function (e) {
+	        e.stopPropagation(); // Prevent click from bubbling
+	        filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
+	    });
+
+	    document.addEventListener("click", function (e) {
+	        if (!filterMenu.contains(e.target) && !filterToggle.contains(e.target)) {
+	            filterMenu.style.display = "none";
+	        }
+	    });
+
+	    checkboxes.forEach(checkbox => {
+	        checkbox.addEventListener("click", function (e) {
+	            // If clicking the already selected option, deselect it
+	            if (selectedCheckbox === this) {
+	                this.checked = false;
+	                selectedCheckbox = null;
+	            } else {
+	                // Deselect all others
+	                checkboxes.forEach(cb => {
+	                    cb.checked = false;
+	                });
+	                this.checked = true;
+	                selectedCheckbox = this;
+	            }
+	        });
+	    });
+	});
+
 </script>
 
     
@@ -204,7 +243,17 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="ScholarshipServlet" class="active">Scholarships</a></li>
+                
+                <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Scholarships
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="ScholarshipServlet"><b>All Scholarships</b></a></li><br>
+                    <li><a class="dropdown-item" href="login.html"><b>Eligible Scholarships</b></a></li>
+                </ul>
+                </li>
+                
+                <!--<li><a href="ScholarshipServlet" class="active">Scholarships</a></li>-->
                 <li><a href="login.html">Login</a></li>
                 <li><a href="register.html">Register</a></li>
             </ul>
@@ -230,9 +279,9 @@
         
 
         <div id="filterMenu" class="dropdown-content">
-      	<label><input type="radio" value="Sort [A-Z]" class="filter-checkbox" /> Sort [A-Z]</label>
-      	<label><input type="radio" value="Sort [Z-A]" class="filter-checkbox" /> Sort [Z-A]</label>
-      	<label><input type="radio" value="Always Open" class="filter-checkbox" /> Always Open</label>
+      	<label><input type="checkbox" value="Sort [A-Z]" class="filter-checkbox" /> Sort [A-Z]</label>
+      	<label><input type="checkbox" value="Sort [Z-A]" class="filter-checkbox" /> Sort [Z-A]</label>
+      	<label><input type="checkbox" value="Always Open" class="filter-checkbox" /> Always Open</label>
       	</div>
       	</div>
       	
