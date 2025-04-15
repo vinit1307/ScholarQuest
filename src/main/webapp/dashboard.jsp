@@ -177,7 +177,7 @@
         <nav>
             <ul>
                 <li><a href="dashboard.jsp"><b>Home</b></a></li>
-                <li><a href="about.html"><b>About</b></a></li>
+                <li><a href="about.jsp"><b>About</b></a></li>
                 <li><button class="dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Scholarships
                 </button>
