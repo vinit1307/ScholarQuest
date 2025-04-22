@@ -188,6 +188,39 @@
         a.button:hover {
             background-color: #0056b3;
         }
+        .button {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add some space between buttons */
+}
+ a.button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        a.button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Center buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Apply Now button green color */
+        .apply-now-btn {
+            background-color: green;
+        }
+
+        .apply-now-btn:hover {
+            background-color: darkgreen;
+        }
         .field {
             margin-bottom: 15px;
         }
@@ -209,7 +242,14 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html"><b>Home</b></a></li>
+            <% 
+                    String email = (String) session.getAttribute("email");
+                    if (email != null) {
+                %>
+                    <li><a href="dashboard.jsp"><b>Home</b></a></li>
+                <% } else { %>
+                    <li><a href="index.html"><b>Home</b></a></li>
+                <% } %>
                 <li><a href="about.jsp"><b>About</b></a></li>
                 <li>
                     <button class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown">
@@ -221,8 +261,8 @@
                     </ul>
                 </li>
                 <% 
-                    String email = (String) session.getAttribute("email");
-                    if (email != null) {
+                    String email1 = (String) session.getAttribute("email");
+                    if (email1 != null) {
                 %>
                     <li><a href="LogoutServlet"><b>Logout</b></a></li>
                 <% } else { %>
@@ -248,8 +288,10 @@
             <div class="field"><label>Caste:</label><p><%= s.getCaste() %></p></div>
             <div class="field"><label>Eligibility:</label><p><%= s.getEligibility() %></p></div>
             <div class="field"><label>Documents Required:</label><p><%= s.getDocumentsRequired() %></p></div>
-            <a class ="button" href="<%= s.getOfficialLink() %>" target="_blank">Apply Now</a><br>
-            <a class="button" href="ScholarshipServlet">← Back to All Scholarships</a>
+            <div class="button-container">
+                <a class="button apply-now-btn" href="<%= s.getOfficialLink() %>" target="_blank">Apply Now</a>
+                <a class="button back-to-scholarships-btn" href="ScholarshipServlet">← Back to All Scholarships</a>
+            </div>
         <%
             } else {
         %>
