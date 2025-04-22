@@ -26,19 +26,6 @@
             background-color: #f8f9fa;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-        }
-
-        .logo h2 {
-            margin: 0;
-            font-weight: bold;
-            color: #007bff;
-        }
-
         .heading {
             text-align: center;
             padding: 40px 20px 20px;
@@ -97,10 +84,10 @@
 </head>
 
 <body>
-    <header class="d-flex justify-content-between align-items-center border-bottom">
+    <header>
         <div class="logo">
-            <i class="fa-solid fa-graduation-cap fa-lg"></i>
-            <a href="index.jsp"><h2>ScholarQuest</h2></a>
+            <i class="fa-solid fa-graduation-cap"></i>
+            <a href="index.html"><h2><b>ScholarQuest </b></h2></a>
         </div>
         <nav>
             <ul>

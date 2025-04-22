@@ -316,14 +316,10 @@
     </main>
     
     <script>
-        function redirectToDetails(scholarshipId) {
-            let isLoggedIn = <%= (session.getAttribute("user") != null) ? "true" : "false" %>;
-            if (!isLoggedIn) {
-                window.location.href = "login.html";
-            } else {
-                window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
-            }
-        }
-    </script>
+    function redirectToDetails(scholarshipId) {
+        window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
+    }
+</script>
+
 </body>
 </html>
