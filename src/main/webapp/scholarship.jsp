@@ -288,7 +288,7 @@
       
         <div class="search-container">
         <div class="search-icon"><i class="fas fa-search"></i></div>
-        <input type="text" class="search-input" placeholder="Search">
+        <input type="text" id="searchInput" onkeyup="filterScholarships()" class="search-input"	 placeholder="Search">
         </div>
         
         </div>
@@ -319,7 +319,21 @@
     function redirectToDetails(scholarshipId) {
         window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
     }
+    function filterScholarships() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const boxes = document.querySelectorAll(".scholarship-box");
+
+        boxes.forEach(box => {
+            const text = box.innerText.toLowerCase();
+            if (text.includes(input)) {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        });
+    }
 </script>
+
 
 </body>
 </html>
