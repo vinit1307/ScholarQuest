@@ -83,8 +83,6 @@
 	});
 
 </script>
-
-    
     <style>
         .container {
             margin-top: 20px;
@@ -180,7 +178,10 @@
         position: relative;
         
         }
-        
+        a {
+        color: black; /* Change link color to black */
+        text-decoration: none; /* Remove underline */
+    }
         #filterToggle{
         background-color: transparent;
         border: none;
@@ -279,9 +280,9 @@
         
 
         <div id="filterMenu" class="dropdown-content">
-      	<label><input type="checkbox" value="Sort [A-Z]" class="filter-checkbox" /> Sort [A-Z]</label>
-      	<label><input type="checkbox" value="Sort [Z-A]" class="filter-checkbox" /> Sort [Z-A]</label>
-      	<label><input type="checkbox" value="Always Open" class="filter-checkbox" /> Always Open</label>
+      	<label><a href="sorting.jsp?sort=a-z"> Sort [A-Z]</a></label>
+      	<label><a href="sorting.jsp?sort=z-a" > Sort [Z-A]</a></label>
+      	<label><a href="sorting.jsp?sort=Alwaysopen"> Always Open</a></label>
       	</div>
       	</div>
       	
