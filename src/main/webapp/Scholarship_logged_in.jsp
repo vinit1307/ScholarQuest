@@ -251,7 +251,7 @@
     </header>
     
     	<br>
-        <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">All Scholarships</h2>
+        <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">Eligible Scholarships</h2>
     
     	<br>
         <br>
@@ -268,14 +268,14 @@
         <div id="filterMenu" class="dropdown-content">
       	<label><a href="sorting.jsp?sort=a-z"> Sort [A-Z]</a></label>
       	<label><a href="sorting.jsp?sort=z-a" > Sort [Z-A]</a></label>
-      	<label><a href="sorting.jsp?sort=Alwaysopen"> Always Open</a></label>
+      	<label><a href="sorting.jsp?sort=Alwaysopen"> Always Open</a></label>	
       	</div>
       	</div>
       	
       
         <div class="search-container">
         <div class="search-icon"><i class="fas fa-search"></i></div>
-        <input type="text" class="search-input" placeholder="Search">
+        <input type="text" id="searchInput" onkeyup="filterScholarships()" class="search-input"	 placeholder="Search">
         </div>
         
         </div>
@@ -307,6 +307,19 @@
     <script>
     function redirectToDetails(scholarshipId) {
         window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
+    }
+    function filterScholarships() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const boxes = document.querySelectorAll(".scholarship-box");
+
+        boxes.forEach(box => {
+            const text = box.innerText.toLowerCase();
+            if (text.includes(input)) {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        });
     }
 </script>
 </body>

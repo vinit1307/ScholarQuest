@@ -91,6 +91,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: stretch;
         }
         .scholarship-box {
         	background-color: transparent;
@@ -107,13 +108,14 @@
    		 	max-width: 400px;
     		width: 700px;
 		}
+		
 		.row {
    			 display: flex;
    			 flex-wrap: wrap;
    			 justify-content: center;
     		 align-items: stretch; /* Ensures all columns stretch to the same height */
 		}
-        
+		
         .scholarship-box:hover {
             transform: scale(1.1);
         }
@@ -324,17 +326,29 @@
         const input = document.getElementById("searchInput").value.toLowerCase();
         const boxes = document.querySelectorAll(".scholarship-box");
 
+        // If the input is empty, show all scholarships
+        if (input === "") {
+            boxes.forEach(box => {
+                box.style.display = "block"; // Show all scholarships
+            });
+            return;
+        }
+
+        // Loop through each scholarship box
         boxes.forEach(box => {
             const text = box.innerText.toLowerCase();
+
+            // If the text includes the search input, show the box; otherwise, hide it
             if (text.includes(input)) {
-                box.style.display = "block";
+                box.style.display = "block"; // Show matched box
             } else {
-                box.style.display = "none";
+                box.style.display = "none"; // Hide unmatched box
             }
         });
     }
-</script>
 
+
+</script>
 
 </body>
 </html>
