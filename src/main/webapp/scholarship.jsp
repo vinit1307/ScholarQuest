@@ -318,42 +318,50 @@
         </div>
     </main>
     
-    <script>
-    const removedDivs = [];
-    function redirectToDetails(scholarshipId) {
-        window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
-    }
-    function filterScholarships() {
-        const input = document.getElementById("searchInput").value.toLowerCase();
-        const boxes = document.querySelectorAll(".scholarship-box");
-      
-        console.log(removedDivs);
-        // If the input is empty, show all scholarships
-        if (input === "") {
-            boxes.forEach(box => {
-                box.style.display = "block"; // Show all scholarships
-            });
-            return;
-        }
+<script>
+const removedDivs = [];
 
-        // Loop through each scholarship box
-        boxes.forEach(box => {
+function redirectToDetails(scholarshipId) {
+    window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
+}
+
+function filterScholarships() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const container = document.querySelector(".row");
+
+    for (let i = removedDivs.length - 1; i >= 0; i--) {
+        const parentDiv = removedDivs[i];
+        const box = parentDiv.querySelector('.scholarship-box');
+        if (box) {
             const text = box.innerText.toLowerCase();
-          
-            // If the text includes the search input, show the box; otherwise, hide it
-            if (text.includes(input)) {
-                box.style.display = "block"; // Show matched box
-            } else {
-            	removedDivs.push(box);
-            
-            	//console.log(removedDivs);
-                box.parentElement.remove(); // Hide unmatched box
+            if (text.includes(input) || input === "") {
+            	//console.log("Parent div ");
+            	//console.log(parentDiv);
+                container.appendChild(parentDiv);
+                removedDivs.splice(i, 1);
             }
-        });
+        }
     }
 
+    // Step 2: Handle visible boxes
+    const boxes = document.querySelectorAll(".scholarship-box");
 
+    boxes.forEach(box => {
+        const text = box.innerText.toLowerCase();
+
+        if (input === "") {
+            box.style.display = "block";
+        } else if (text.includes(input)) {
+            box.style.display = "block";
+        } else {
+            removedDivs.push(box.parentElement);
+            box.parentElement.remove();
+        }
+    });
+}
 </script>
+
+
 
 </body>
 </html>
