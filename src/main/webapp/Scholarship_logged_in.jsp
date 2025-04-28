@@ -251,7 +251,7 @@
     </header>
     
     	<br>
-        <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">Eligible Scholarships</h2>
+        <h2 style="text-align: center; margin-top: 20px;font-size: 35px;font-weight: bold;">Scholarships</h2>
     
     	<br>
         <br>
