@@ -319,13 +319,15 @@
     </main>
     
     <script>
+    const removedDivs = [];
     function redirectToDetails(scholarshipId) {
         window.location.href = "ScholarshipDetailsServlet?scholarshipId=" + scholarshipId;
     }
     function filterScholarships() {
         const input = document.getElementById("searchInput").value.toLowerCase();
         const boxes = document.querySelectorAll(".scholarship-box");
-
+      
+        console.log(removedDivs);
         // If the input is empty, show all scholarships
         if (input === "") {
             boxes.forEach(box => {
@@ -337,12 +339,15 @@
         // Loop through each scholarship box
         boxes.forEach(box => {
             const text = box.innerText.toLowerCase();
-
+          
             // If the text includes the search input, show the box; otherwise, hide it
             if (text.includes(input)) {
                 box.style.display = "block"; // Show matched box
             } else {
-                box.style.display = "none"; // Hide unmatched box
+            	removedDivs.push(box);
+            
+            	//console.log(removedDivs);
+                box.parentElement.remove(); // Hide unmatched box
             }
         });
     }
